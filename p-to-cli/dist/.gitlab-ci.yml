@@ -1,0 +1,11 @@
+stages:
+  - build
+
+deploy_release:
+  stage: build
+  only:
+    - release
+  script:
+    - npm install
+    - npm run build
+    - rsync -acvz --delete -e ssh dist/* root@172.27.16.36:/usr/local/application/web/
